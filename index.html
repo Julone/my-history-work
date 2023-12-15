@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.bootcss.com/less.js/3.11.1/less.min.js"></script>
+</head>
+<body>
+	<style >
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			background: rgb(240,242,245);
+		}
+		.container{
+			width: 100%;
+			height: 100vh;
+			position: fixed;
+			top: 0;
+			overflow: hidden;
+			left: 0;
+		}
+		.wrapper{
+			width: fit-content;
+			height: 100%;
+			display: flex;
+			padding: 20px 10px;
+			box-sizing: border-box;
+		}
+		.li{
+			width: auto;
+			height: 100%;
+			flex: none;
+			box-sizing: border-box;
+			/* background: gray; */
+			display: flex;
+			justify-content: flex-start;
+			/*border: 1px solid red;*/
+		
+		}
+		.li.actived{
+			animation: fade 1.6s ease;
+		}
+		@keyframes fade {
+			from {
+				opacity: 0;
+				transform: translate(50vw,0vw);
+			}
+			to{
+				opacity: 1;
+				transform: translate(0,0);
+			}
+		}
+		.li .intro{
+			display: flex;
+			width:42vw;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			padding: 0 100px;
+				
+		}
+
+		.li.actived .label{
+			animation: fade 1.4s ease;
+		}
+		.li .intro .title{
+			font-size: 7vmin;
+			width: 100%;
+			font-weight: 600;
+			margin-bottom: 10px;;
+			color: #333;
+			letter-spacing: 2px;
+		}
+		.li .intro .label{
+			font-size: 3vmin;
+			font-weight: 400;
+			text-align: justify;
+			color: #555;
+			line-height: 5vmin;
+		}
+		.li img{
+			height: 100%;
+			margin: 0 10px;
+			border-radius: 2px;
+			border: 2px solid rgb(32,155,253);
+			box-sizing: border-box;
+
+		}
+		.li:nth-of-type(2n){
+			/* background: pink */
+		}
+		.long{
+			width: 1px;
+
+		}
+		.logo{
+			position: fixed;
+			left: 40px;
+			top: 20px;
+		}
+		.logo img{ 
+			width: 120px;
+
+		}
+	</style>
+	<script>
+		window.onload = ()=>{
+			var w = document.querySelector('.wrapper');
+			console.log(w.clientWidth);
+			var cw = w.clientWidth
+			var last =  document.querySelector('.li:last-child').clientWidth;
+			console.log('last', last)
+			var vw = window.innerWidth
+			document.querySelector('.long').style.height = (cw - vw + w.clientHeight) + "px";
+			var liGroup = [...document.querySelectorAll('.container .wrapper .li')];
+				liGroup.forEach(el => el.setAttribute('offsetLeft', el.offsetLeft));
+			window.onscroll = e=>{
+				console.log(e);
+				var stop = document.querySelector('body,html').scrollTop;
+				w.style.transform = `translateX(-${stop}px)`;			
+				for(var li in liGroup){
+					var nextLeft = liGroup[li + 1] ? liGroup[li+1].getAttribute('offsetLeft'): Infinity;
+					var curLeft = liGroup[li].getAttribute('offsetLeft') ;
+					if(nextLeft >= stop + vw  && curLeft <= stop + vw ){
+						liGroup[li].classList.add('actived')
+					}else{
+						liGroup[li].classList.remove('actived')
+
+					}
+
+				}
+			}
+		}
+	</script>
+	<div class="logo">
+		<img src="./img/logo-ani-rainbow.svg" alt="">
+	</div>
+	<div class="container">
+		<div class="wrapper">
+			<div class="li actived">
+				<div class="intro">
+					<div class="title">
+						报销系统
+					</div>
+					<div class="label">
+						开发目的是根据“每刻报销”应用来打造满足内部需求的报销系统，核心功能为记费用、提单据、发票识别、发票验真、微信发票导入等。
+					</div>
+				</div>
+				<img src="./img/baoxiao (1).png" alt="">
+				<img src="./img/baoxiao (2).png" alt="">
+				<img src="./img/baoxiao (3).png" alt="">
+				<img src="./img/baoxiao (4).png" alt="">
+				<img src="./img/baoxiao (5).png" alt="">
+				<img src="./img/baoxiao (6).png" alt="">
+				<img src="./img/baoxiao (7).png" alt="">
+			</div>
+			<div class="li">
+				<div class="intro">
+					<div class="title">
+						千店千面
+					</div>
+					<div class="label">
+						开发目的是为了解决不同门店间的首页配置问题。比如A门店是北京分店，B门店是上海分店，它们的首页是不同的，如果程序员单独配置，浪费许多精力。
+					</div>
+				</div>
+				<img src="./img/qiandian (1).png" alt="">
+				<img src="./img/qiandian (3).png" alt="">
+				<img src="./img/qiandian (4).png" alt="">
+			</div>
+			<div class="li">
+				<div class="intro">
+					<div class="title">
+						人资培训
+					</div>
+					<div class="label">
+						用于企业内部培训新入职员工，员工可以通过系统来进行查看视频学习、考卷评分等来达到培训的目的。
+					</div>
+				</div>
+				<img src="./img/peixun (1).png" alt="">
+				<img src="./img/peixun (2).png" alt="">
+				<img src="./img/peixun (3).png" alt="">
+				<img src="./img/peixun (4).png" alt="">
+				<img src="./img/peixun (5).png" alt="">
+				<img src="./img/peixun (6).png" alt="">
+			</div>
+			<div class="li">
+				<div class="intro">
+					<div class="title">
+						五里质检
+					</div>
+					<div class="label">
+						用于为公司工厂内的质检人员提供检验以及查询功能
+					</div>
+				</div>
+				<img src="./img/wuli (1).png" alt="">
+				<img src="./img/wuli (2).png" alt="">
+				<img src="./img/wuli (3).png" alt="">
+				<img src="./img/wuli (4).png" alt="">
+			</div>
+			<div class="li">
+				<div class="intro">
+					<div class="title">
+						涉案财物管理系统
+					</div>
+					<div class="label">
+						主要工作是“福建省涉案财物管理系统”的前端页面的开发，和后端同事配合完成了前后端的接口数据的对接。
+					</div>
+				</div>
+				<img src="./img/sacw (1).png" alt="">
+				<img src="./img/sacw (2).png" alt="">
+			</div>
+			<div class="li">
+				<div class="intro">
+					<div class="title">
+						个人作品
+					</div>
+					<div class="label">
+						在大一下学期开始，开始学习HTML、CSS以及JavaScript相关知识，做过大量的静态页面以及动态页面，实践了多种多样的网页布局，比如移动端适配、响应式布局等。
+					</div>
+				</div>
+				<img src="./img/geren (1).png" alt="">
+				<img src="./img/geren (2).png" alt="">
+				<img src="./img/geren (3).png" alt="">
+			</div>
+
+			<div class="li">
+				<div class="intro">
+					<div class="title" style="text-align: center;">
+						END
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="long">
+		
+	</div>
+</body>
+</html>
